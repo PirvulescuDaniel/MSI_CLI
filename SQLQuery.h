@@ -5,6 +5,7 @@
 
 class SQLQuery : public IQuery
 {
+
 public:
 	void ComposeAddTableQuery(const Table& aTable);
 	void ComposeRemoveTableQuery(const Table& aTable);
