@@ -16,6 +16,9 @@
     <Filter Include="Models">
       <UniqueIdentifier>{159dbab9-a320-408c-a4d0-7fa72c0ba92a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{c37ff140-df01-4063-b92d-7b5951c3f7a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -41,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="Condition.cpp">
       <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Database.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +76,12 @@
     </ClInclude>
     <ClInclude Include="Condition.h">
       <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Database.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

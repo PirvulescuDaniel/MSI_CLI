@@ -1,7 +1,7 @@
 #include "ExecutorHandler.h"
 
 ExecutorHandler::ExecutorHandler(const Executor::EXECUTOR_ERROR& aError)
-  :mError(mError)
+  :mError(aError)
 {
   Handle();
 }
@@ -15,7 +15,7 @@ void ExecutorHandler::Handle() const
   switch (mError.errorString)
   {
   case Executor::STRING_ERROR::SUCCESS:
-    //bravo tata
+    std::cout << "Command executed successfully!" << std::endl;
     break;
   case Executor::STRING_ERROR::VIEW_OPEN_ERROR:
     ShowError(L"VIEW_OPEN_ERROR", mError.errorCode);
