@@ -1,6 +1,6 @@
 #pragma once
 #include "pch.h"
-#include "IQuery.h"
+#include "ITableQueries.h"
 #include "SQLQuery.h"
 
 class Executor
@@ -16,11 +16,11 @@ public:
   };
 
   Executor() = delete;
-  Executor(MSIHANDLE aHandle, IQuery* aQuery);
+  Executor(MSIHANDLE aHandle, ITableQueries* aQuery);
 
   std::optional<EXECUTOR_ERROR> Execute();
 
 private:
   MSIHANDLE mHandle;
-  std::shared_ptr<IQuery> mQuery;
+  std::shared_ptr<ITableQueries> mQuery;
 };

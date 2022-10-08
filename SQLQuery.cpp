@@ -40,6 +40,32 @@ void SQLQuery::ComposeModifyTableQuery(const Table& aTable, const std::vector<Co
 }
 
 /*
+  compose the query that select some fields from the table
+*/
+void SQLQuery::ComposeSelectQuery(
+  const Table& aTable,
+  const Field& aField,
+  const std::vector<Condition>& aConditions)
+{
+  std::string queryTemp = "SELECT `" + aTable.GetName() + "`.`" + aField.GetName() + "` FROM `" + aTable.GetName() + '`';
+
+  if (!aConditions.empty())
+  {
+    queryTemp += " WHERE ";
+    for (const auto& condition : aConditions)
+    {
+      queryTemp += "`" + condition.GetLeftArgument() + "`" + condition.GetComparator() + "'" + condition.GetRightArgument() + "'";
+      if (!(aConditions.back() == condition))
+      {
+        queryTemp += " AND ";
+      }
+    }
+  }
+
+  mQuery = queryTemp;
+}
+
+/*
     @return the query as a std::string
 */
 const std::string& SQLQuery::GetQuery() const

@@ -8,12 +8,11 @@ Database::Database(const std::string& aDatabasePath)
   OpenDatabase();
 }
 
-Database::~Database()
-{
-  MsiDatabaseCommit(mHandle);
-}
 
-void Database::Interrogate(IQuery* aQuery)
+/*
+  Execute a query to databases
+*/
+void Database::Interrogate(ITableQueries* aQuery)
 {
   Executor executor(mHandle,aQuery);
   std::optional<Executor::EXECUTOR_ERROR> error = executor.Execute();
@@ -29,6 +28,9 @@ void Database::Interrogate(IQuery* aQuery)
   }
 }
 
+/*
+  Open a database
+*/
 void Database::OpenDatabase()
 {
   UINT openDbResult = MsiOpenDatabase(Utility::to_wstring(mDatabasePath).c_str(), MSIDBOPEN_TRANSACT, & mHandle);
@@ -41,6 +43,9 @@ void Database::OpenDatabase()
   std::cout << "Database open successfully" << std::endl;
 }
 
+/*
+  Commit the changes in the database
+*/
 void Database::Commit()
 {
   UINT commitResult = MsiDatabaseCommit(mHandle);

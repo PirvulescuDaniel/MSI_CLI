@@ -3,10 +3,10 @@
 #include "Table.h"
 #include "Condition.h"
 
-class IQuery
+class ITableQueries
 {
 public:
-	virtual ~IQuery() = default;
+	virtual ~ITableQueries() = default;
 
 	virtual void ComposeAddTableQuery(const Table& aTable) = 0;
 	virtual void ComposeRemoveTableQuery(const Table& aTable) = 0;

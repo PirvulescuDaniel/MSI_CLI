@@ -12,6 +12,6 @@
 
 //MSI
 #include <Windows.h>
-#include <MsiQuery.h>
+#include <msiquery.h>
 
 #pragma comment(lib, "Msi.lib")

@@ -1,11 +1,14 @@
 #include "Executor.h"
 
-Executor::Executor(MSIHANDLE aHandle, IQuery* aQuery)
+Executor::Executor(MSIHANDLE aHandle, ITableQueries* aQuery)
   :mHandle(aHandle)
   ,mQuery(aQuery)
 {
 }
-
+/*
+  Execute a query
+  @return an optinal value if an error eccurs
+*/
 std::optional<Executor::EXECUTOR_ERROR> Executor::Execute()
 {
   MSIHANDLE viewHandle;

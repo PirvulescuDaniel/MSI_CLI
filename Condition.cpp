@@ -33,3 +33,10 @@ const std::string& Condition::GetComparator() const
 {
     return mComparator;
 }
+
+bool Condition::operator==(const Condition aCondition) const
+{
+  return this->mLeftArgument  == aCondition.GetLeftArgument() &&
+         this->mComparator    == aCondition.GetComparator()   &&
+         this->mRightArgument == aCondition.GetRightArgument();
+}

@@ -12,6 +12,8 @@ public:
 	const std::string& GetRightArgument() const;
 	const std::string& GetComparator() const;
 
+	bool operator == (const Condition aCondition) const ;
+
 private:
 	std::string mLeftArgument;
 	std::string mRightArgument;

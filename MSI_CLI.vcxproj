@@ -144,7 +144,7 @@
     <ClInclude Include="Executor.h" />
     <ClInclude Include="ExecutorHandler.h" />
     <ClInclude Include="Field.h" />
-    <ClInclude Include="IQuery.h" />
+    <ClInclude Include="ITableQueries.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Row.h" />
     <ClInclude Include="SQLQuery.h" />

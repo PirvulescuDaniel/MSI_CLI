@@ -62,7 +62,7 @@
     <ClInclude Include="Table.h">
       <Filter>Models</Filter>
     </ClInclude>
-    <ClInclude Include="IQuery.h">
+    <ClInclude Include="ITableQueries.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SQLQuery.h">

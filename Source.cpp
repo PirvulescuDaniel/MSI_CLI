@@ -1,31 +1,29 @@
 #include "pch.h"
 #include "Database.h"
 #include "Table.h"
-#include "IQuery.h"
+#include "ITableQueries.h"
 #include "SQLQuery.h"
 
 int main(){
 
   const std::string path = "C:\\Users\\Dani\\Desktop\\test.Msi";
 
-  Database db(path);
+  SQLQuery query;
 
-  std::vector<Field> fields = {
-                              Field("col1","val1"),
-                              Field("col2","val1"),
-                              Field("col3","val1")
+  Table table("myTable");
+  Field field("col1", "val1");
+  Condition("col1", "=", "val1");
+
+  std::vector<Condition> myVec = {
+    Condition("col1", "=", "val1"),
+    Condition("col2", "<", "val2"),
+    Condition("col3", ">", "val3"),
+    Condition("col4", "<>", "val4")
   };
 
-  Row row(fields);
-  std::vector<Row> rows;
-  rows.push_back(row);
+  query.ComposeSelectQuery(table, field, myVec);
 
-  Table table("myTable1", rows);
-
-  IQuery* query = new SQLQuery();
-  query->ComposeAddTableQuery(table);
-
-  db.Interrogate(query);
+  std::cout << query.GetQuery();
 
   //TODO
   //check if already exists a table with that name in the database
