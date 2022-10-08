@@ -15,6 +15,7 @@ public:
 
 private:
   void OpenDatabase();
+  void Commit();
 
   PMSIHANDLE mHandle;
   std::string mDatabasePath;

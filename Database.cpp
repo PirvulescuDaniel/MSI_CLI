@@ -24,6 +24,7 @@ void Database::Interrogate(IQuery* aQuery)
   }
   else
   {
+    Commit();
     std::cout << "Command executed successfully!" << std::endl;
   }
 }
@@ -37,5 +38,15 @@ void Database::OpenDatabase()
     exit(0);
   }
 
-  std::cout << "Database open successfully";
+  std::cout << "Database open successfully" << std::endl;
+}
+
+void Database::Commit()
+{
+  UINT commitResult = MsiDatabaseCommit(mHandle);
+  if (commitResult != ERROR_SUCCESS)
+  {
+    Utility::ShowMSB("Error at commiting changes on database");
+    exit(0);
+  }
 }

@@ -16,11 +16,11 @@ public:
   };
 
   Executor() = delete;
-  Executor(PMSIHANDLE aHandle, IQuery* aQuery);
+  Executor(MSIHANDLE aHandle, IQuery* aQuery);
 
   std::optional<EXECUTOR_ERROR> Execute();
 
 private:
-  PMSIHANDLE mHandle;
+  MSIHANDLE mHandle;
   std::shared_ptr<IQuery> mQuery;
 };

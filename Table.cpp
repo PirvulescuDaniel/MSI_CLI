@@ -14,7 +14,7 @@ Table::Table(const std::string& aName)
 	create a table named "aName" with rows "aRows"
 */
 Table::Table(const std::string& aName, const std::vector<Row>& aRows)
-	: mName(aName)
+	:mName(aName)
 	,mRows(aRows)
 {
 }
