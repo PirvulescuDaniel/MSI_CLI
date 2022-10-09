@@ -9,8 +9,10 @@ class Database {
 public:
   Database() = delete;
   Database(const std::string& aDatabasePath);
+  ~Database();
 
   void Interrogate(ITableQueries* aQuery);
+  std::vector<std::string> InterrogateWithReturn(ITableQueries* aQuery);
 
 private:
   void OpenDatabase();

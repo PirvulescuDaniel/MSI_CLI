@@ -53,12 +53,11 @@ std::optional<std::vector<std::string>> Executor::ExecuteWithReturn()
   UINT fetchResult = MsiViewFetch(mViewHandle, &recordHandle);
   while (fetchResult != ERROR_NO_MORE_ITEMS)
   {
-    DWORD size = MsiRecordDataSize(recordHandle, 1);
-    wchar_t* content = new wchar_t[size + 1];
+    DWORD size = MsiRecordDataSize(recordHandle, 1) + 1;
+    char* content = new char[size + 1];
 
-    MsiRecordGetString(recordHandle, 1, content, &size);
-    std::wstring wcontent(content);
-    records.push_back(std::string(wcontent.begin(), wcontent.end()));
+    MsiRecordGetStringA(recordHandle, 1, content, &size);
+    records.push_back(content);
 
     delete[] content;
     fetchResult = MsiViewFetch(mViewHandle, &recordHandle);

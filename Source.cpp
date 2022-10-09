@@ -8,25 +8,23 @@ int main(){
 
   const std::string path = "C:\\Users\\Dani\\Desktop\\test.Msi";
 
-  SQLQuery query;
 
   Table table("myTable");
-  Field field("col1", "val1");
-  Condition("col1", "=", "val1");
+  Field field("col1", "dummy");
+  std::vector<Condition> conditions;
 
-  std::vector<Condition> myVec = {
-    Condition("col1", "=", "val1"),
-    Condition("col2", "<", "val2"),
-    Condition("col3", ">", "val3"),
-    Condition("col4", "<>", "val4")
-  };
+  ITableQueries* query = new SQLQuery;
+  query->ComposeSelectQuery(table, field, conditions);
 
-  query.ComposeSelectQuery(table, field, myVec);
+  std::cout << query->GetQuery();
 
-  std::cout << query.GetQuery();
-
-  //TODO
-  //check if already exists a table with that name in the database
+  Database db(path);
+  std::vector<std::string> results = db.InterrogateWithReturn(query);
+  
+  for (const auto& result : results)
+  {
+    std::cout << result << " ";
+  }
 
   return 0;
 }

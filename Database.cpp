@@ -8,6 +8,13 @@ Database::Database(const std::string& aDatabasePath)
   OpenDatabase();
 }
 
+/*
+  Close the handle before destroy db object
+*/
+Database::~Database()
+{
+  MsiCloseHandle(mHandle);
+}
 
 /*
   Execute a query to databases
@@ -25,6 +32,19 @@ void Database::Interrogate(ITableQueries* aQuery)
   {
     Commit();
     std::cout << "Command executed successfully!" << std::endl;
+  }
+}
+
+/*
+  Execute a query to databases that returns a vector with records
+*/
+std::vector<std::string> Database::InterrogateWithReturn(ITableQueries* aQuery)
+{
+  Executor executor(mHandle, aQuery);
+  auto result = executor.ExecuteWithReturn();
+  if (result.has_value())
+  {
+    return result.value();
   }
 }
 
