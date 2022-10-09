@@ -11,14 +11,22 @@ public:
 		MENU_ADD_TABLE
 	};
 
+	enum class COMMANDS
+	{
+		COMMAND_ADD_TABLE
+	};
+
 	UserInput();
 
 	void MenuMain();
-	void MenuAddTable();
+	std::string MenuAddTable();
 
-	UserInput::MENU_STATE GetState();
+	UserInput::MENU_STATE GetState() const;
+	void SetState(const UserInput::MENU_STATE& aState);
+
+	UserInput::COMMANDS GetCommand() const;
 
 private:
 	MENU_STATE mState;
-	std::string mCommand;
+	COMMANDS mCommand;
 };
