@@ -1,31 +1,68 @@
 #include "Executor.h"
 
 Executor::Executor(MSIHANDLE aHandle, ITableQueries* aQuery)
-  :mHandle(aHandle)
+  :mDbHandle(aHandle)
+  ,mViewHandle(NULL)
   ,mQuery(aQuery)
 {
 }
+
+/*
+  Close the handle to the view before destory executor obj
+*/
+Executor::~Executor()
+{
+  MsiCloseHandle(mViewHandle);
+}
+
 /*
   Execute a query
   @return an optinal value if an error eccurs
 */
 std::optional<Executor::EXECUTOR_ERROR> Executor::Execute()
 {
-  MSIHANDLE viewHandle;
   std::wstring wquery(mQuery->GetQuery().begin(), mQuery->GetQuery().end());
 
-  UINT viewResult = MsiDatabaseOpenView(mHandle, wquery.c_str(), &viewHandle);
+  UINT viewResult = MsiDatabaseOpenView(mDbHandle, wquery.c_str(), &mViewHandle);
   if (viewResult != ERROR_SUCCESS)
   {
     return EXECUTOR_ERROR(Executor::STRING_ERROR::VIEW_OPEN_ERROR, viewResult);
   }
 
-  UINT executeResult = MsiViewExecute(viewHandle, 0);
+  UINT executeResult = MsiViewExecute(mViewHandle, 0);
   if (executeResult != ERROR_SUCCESS)
   {
     return EXECUTOR_ERROR(Executor::STRING_ERROR::VIEW_EXECUTE_ERROR, executeResult);
   }
 
-  MsiCloseHandle(viewHandle);
   return std::nullopt;
+}
+
+/*
+  Execute a query that can have results
+*/
+std::optional<std::vector<std::string>> Executor::ExecuteWithReturn()
+{
+  std::vector<std::string> records;
+
+  std::optional<Executor::EXECUTOR_ERROR> error = Execute();
+  if (error.has_value())
+    return std::nullopt;
+
+  MSIHANDLE recordHandle{};
+  UINT fetchResult = MsiViewFetch(mViewHandle, &recordHandle);
+  while (fetchResult != ERROR_NO_MORE_ITEMS)
+  {
+    DWORD size = MsiRecordDataSize(recordHandle, 1);
+    wchar_t* content = new wchar_t[size + 1];
+
+    MsiRecordGetString(recordHandle, 1, content, &size);
+    std::wstring wcontent(content);
+    records.push_back(std::string(wcontent.begin(), wcontent.end()));
+
+    delete[] content;
+    fetchResult = MsiViewFetch(mViewHandle, &recordHandle);
+  }
+
+  return records;
 }

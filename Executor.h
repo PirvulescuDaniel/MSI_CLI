@@ -17,10 +17,14 @@ public:
 
   Executor() = delete;
   Executor(MSIHANDLE aHandle, ITableQueries* aQuery);
+  ~Executor();
+  
 
   std::optional<EXECUTOR_ERROR> Execute();
+  std::optional<std::vector<std::string>> ExecuteWithReturn();
 
 private:
-  MSIHANDLE mHandle;
+  MSIHANDLE mDbHandle;
+  MSIHANDLE mViewHandle;
   std::shared_ptr<ITableQueries> mQuery;
 };
