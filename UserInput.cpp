@@ -10,15 +10,18 @@ UserInput::UserInput()
 */
 void UserInput::MenuMain()
 {
+	std::cout << std::endl;
 	std::cout << "-------------MAIN MENU-------------" << std::endl;
 	std::cout << "   1. create table" << std::endl;
 	std::cout << "   2. modify table" << std::endl;
 	std::cout << "   3. remove table" << std::endl << std::endl;
 
 	std::string commandString;
-	std::cin >> commandString;
+	std::getline(std::cin, commandString);
 
-	if (commandString == "create")
+	commandString = commandString.substr(0, commandString.find(" "));
+
+ 	if (commandString == "create")
 		mCommand = UserInput::COMMANDS::COMMAND_ADD_TABLE;
 }
 
@@ -27,6 +30,7 @@ void UserInput::MenuMain()
 */
 std::string UserInput::MenuAddTable()
 {
+	std::cout << std::endl;
 	std::cout << "-------------ADD TABLE MENU-------------" << std::endl;
 	std::cout << "Name of the table and columns numbers: " << std::endl;
 
@@ -38,7 +42,7 @@ std::string UserInput::MenuAddTable()
 	{
 		std::cout << "Column name: ";
 		std::string column;
-		std::cin >> column;
+		std::getline(std::cin, column);
 		input += " " + column;
 	}
 
