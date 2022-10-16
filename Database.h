@@ -18,7 +18,7 @@ private:
   void OpenDatabase();
   void Commit();
 
-  PMSIHANDLE mHandle;
+  MSIHANDLE mHandle;
   std::string mDatabasePath;
 
 };

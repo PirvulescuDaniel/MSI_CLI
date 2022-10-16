@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -105,6 +105,9 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(MSBuildProjectName)/pch.h</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +136,7 @@
     <ClCompile Include="Executor.cpp" />
     <ClCompile Include="ExecutorHandler.cpp" />
     <ClCompile Include="Field.cpp" />
+    <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Row.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SQLQuery.cpp" />
@@ -145,6 +149,7 @@
     <ClInclude Include="Executor.h" />
     <ClInclude Include="ExecutorHandler.h" />
     <ClInclude Include="Field.h" />
+    <ClInclude Include="Parser.h" />
     <ClInclude Include="ITableQueries.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Row.h" />

@@ -4,6 +4,7 @@
 #include "ITableQueries.h"
 #include "SQLQuery.h"
 #include "UserInput.h"
+#include "Parser.h"
 
 int main(){
 
@@ -28,6 +29,17 @@ int main(){
       case UserInput::MENU_STATE::MENU_ADD_TABLE:
         {
           std::string input = ui.MenuAddTable();
+
+          Table table = Parser::ParseCreateTable(input);
+
+          SQLQuery query;
+          ITableQueries* IQuery = &query;
+
+          IQuery->ComposeAddTableQuery(table);
+          
+          Database db("C:\\Users\\Dani\\Desktop\\test.msi");
+          db.Interrogate(IQuery);
+
           ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
           break;
         }

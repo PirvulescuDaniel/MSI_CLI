@@ -1,4 +1,5 @@
 #include "Condition.h"
+#include "pch.h"
 
 Condition::Condition(
     const std::string& aLeftArgument,

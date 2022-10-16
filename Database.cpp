@@ -46,6 +46,8 @@ std::vector<std::string> Database::InterrogateWithReturn(ITableQueries* aQuery)
   {
     return result.value();
   }
+
+  return {};
 }
 
 /*
