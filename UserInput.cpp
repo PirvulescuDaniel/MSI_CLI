@@ -5,6 +5,18 @@ UserInput::UserInput()
 {
 }
 
+
+/*
+	Interogate user for database path
+*/
+std::string UserInput::GetDbPath()
+{
+	std::string path;
+	std::cout << "Database(MSI) path: ";
+	std::getline(std::cin, path);
+	return path;
+}
+
 /*
 	Show the main menu
 */
@@ -12,9 +24,11 @@ void UserInput::MenuMain()
 {
 	std::cout << std::endl;
 	std::cout << "-------------MAIN MENU-------------" << std::endl;
-	std::cout << "   1. create table" << std::endl;
-	std::cout << "   2. modify table" << std::endl;
-	std::cout << "   3. remove table" << std::endl << std::endl;
+	std::cout << "   1. Create table" << std::endl;
+	std::cout << "   2. Modify table" << std::endl;
+	std::cout << "   3. Remove table" << std::endl;
+	std::cout << "   4. Switch database" << std::endl;
+	std::cout << "   5. Quit" << std::endl << std::endl;
 
 	std::string commandString;
 	std::getline(std::cin, commandString);
@@ -23,6 +37,12 @@ void UserInput::MenuMain()
 
  	if (commandString == "create")
 		mCommand = UserInput::COMMANDS::COMMAND_ADD_TABLE;
+
+	if (commandString == "switch")
+		mCommand = UserInput::COMMANDS::COMMAND_SWITCH_DB;
+
+	if (commandString == "quit")
+		mCommand = UserInput::COMMANDS::COMMAND_QUIT;
 }
 
 /*

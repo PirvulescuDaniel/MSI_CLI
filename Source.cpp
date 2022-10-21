@@ -9,6 +9,9 @@
 int main(){
 
   UserInput ui;
+  std::string databasePath = ui.GetDbPath();
+
+  Database db(databasePath);
 
   while (true)
   {
@@ -23,6 +26,12 @@ int main(){
             case UserInput::COMMANDS::COMMAND_ADD_TABLE:
               ui.SetState(UserInput::MENU_STATE::MENU_ADD_TABLE);
               break;
+            case UserInput::COMMANDS::COMMAND_SWITCH_DB:
+              ui.SetState(UserInput::MENU_STATE::MENU_OPEN_DATABASE);
+              break;
+            case UserInput::COMMANDS::COMMAND_QUIT:
+              db.CloseCurrentDb();
+              exit(0);
           }
           break;
         }
@@ -32,14 +41,20 @@ int main(){
 
           Table table = Parser::ParseCreateTable(input);
 
-          SQLQuery query;
-          ITableQueries* IQuery = &query;
+          ITableQueries* query = new SQLQuery();
 
-          IQuery->ComposeAddTableQuery(table);
+          query->ComposeAddTableQuery(table);
           
-          Database db("C:\\Users\\Dani\\Desktop\\test.msi");
-          db.Interrogate(IQuery);
+          db.Interrogate(query);
 
+          ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
+          break;
+        }
+      case UserInput::MENU_STATE::MENU_OPEN_DATABASE:
+        {
+          db.CloseCurrentDb();
+          databasePath = ui.GetDbPath();
+          db.SwitchDatabase(databasePath);
           ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
           break;
         }
@@ -51,8 +66,6 @@ int main(){
     }
 
   }
-
-  //test2
 
   return 0;
 }

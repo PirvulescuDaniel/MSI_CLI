@@ -14,6 +14,9 @@ public:
   void Interrogate(ITableQueries* aQuery);
   std::vector<std::string> InterrogateWithReturn(ITableQueries* aQuery);
 
+  void CloseCurrentDb();
+  void SwitchDatabase(const std::string& aPath);
+
 private:
   void OpenDatabase();
   void Commit();

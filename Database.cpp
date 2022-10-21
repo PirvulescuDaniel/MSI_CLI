@@ -13,7 +13,11 @@ Database::Database(const std::string& aDatabasePath)
 */
 Database::~Database()
 {
-  MsiCloseHandle(mHandle);
+  UINT closeResult = MsiCloseHandle(mHandle);
+  if (closeResult != ERROR_SUCCESS)
+  {
+    Utility::ShowMSB("Error at closing the database");
+  }
 }
 
 /*
@@ -48,6 +52,32 @@ std::vector<std::string> Database::InterrogateWithReturn(ITableQueries* aQuery)
   }
 
   return {};
+}
+
+/*
+  Close the current database
+*/
+void Database::CloseCurrentDb()
+{
+  if (!mHandle)
+    Utility::ShowMSB("There is no database in use.");
+
+  UINT closeResult = MsiCloseHandle(mHandle);
+  if (closeResult != ERROR_SUCCESS)
+  {
+    Utility::ShowMSB("Error at switching the database.");
+  }
+  system("cls");
+  std::cout << "Database closed successfully" << std::endl;
+}
+
+/*
+  Switch the database path
+*/
+void Database::SwitchDatabase(const std::string& aPath)
+{
+  mDatabasePath = aPath;
+  OpenDatabase();
 }
 
 /*

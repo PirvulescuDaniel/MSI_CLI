@@ -1,4 +1,5 @@
 #include "Executor.h"
+#include "Utility.h"
 
 Executor::Executor(MSIHANDLE aHandle, ITableQueries* aQuery)
   :mDbHandle(aHandle)
@@ -12,7 +13,11 @@ Executor::Executor(MSIHANDLE aHandle, ITableQueries* aQuery)
 */
 Executor::~Executor()
 {
-  MsiCloseHandle(mViewHandle);
+  UINT closeResult = MsiCloseHandle(mViewHandle);
+  if (closeResult != ERROR_SUCCESS)
+  {
+    Utility::ShowMSB("Error at closing the view");
+  }
 }
 
 /*
