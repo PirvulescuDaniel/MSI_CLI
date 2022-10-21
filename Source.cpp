@@ -52,7 +52,5 @@ int main(){
 
   }
 
-  //test for ssh key
-
   return 0;
 }
