@@ -38,15 +38,29 @@ int main(){
       case UserInput::MENU_STATE::MENU_ADD_TABLE:
         {
           std::string input = ui.MenuAddTable();
-
           Table table = Parser::ParseCreateTable(input);
 
-          ITableQueries* query = new SQLQuery();
+          //first check if the table already exists in the database
 
-          query->ComposeAddTableQuery(table);
-          
-          db.Interrogate(query);
+          ITableQueries* checkQuery = new SQLQuery();
+          Table checkTable("_Tables");
+          Field checkField("Name", "dummyValue");
+          Condition checkCondition("Name", "=", table.GetName());
+          checkQuery->ComposeSelectQuery(checkTable, checkField, { checkCondition });
+          std::vector<std::string> tablesOutput = db.InterrogateWithReturn(checkQuery);
 
+          if (!tablesOutput.empty())
+          {
+            std::cout << std::endl << "The table already exists in the database!" << std::endl;
+          }
+          else
+          {
+            ITableQueries* query = new SQLQuery();
+
+            query->ComposeAddTableQuery(table);
+
+            db.Interrogate(query);
+          }
           ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
           break;
         }
