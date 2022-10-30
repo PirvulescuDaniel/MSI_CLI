@@ -1,4 +1,5 @@
 #include "UserInput.h"
+#include "Utility.h"
 
 UserInput::UserInput()
 	:mState(UserInput::MENU_STATE::MENU_MAIN)
@@ -43,6 +44,9 @@ void UserInput::MenuMain()
 
 	if (commandString == "quit")
 		mCommand = UserInput::COMMANDS::COMMAND_QUIT;
+
+	if (commandString == "modify")
+		mCommand = UserInput::COMMANDS::COMMAND_MODIFY;
 }
 
 /*
@@ -67,6 +71,66 @@ std::string UserInput::MenuAddTable()
 	}
 
 	return input;
+}
+
+/*
+	Show modify table menu and return the input
+*/
+std::string UserInput::MenuModifyTable()
+{
+	std::cout << std::endl;
+	std::cout << "-------------MODIFY TABLE MENU-------------" << std::endl;
+	std::cout << "   1.\"table_name\" add row " << std::endl;
+	std::cout << "   2.\"table_name\" remove row" << std::endl;
+	std::cout << "   3.\"table_name\" update row" << std::endl << std::endl;
+
+	std::string input;
+	std::getline(std::cin, input);
+
+	std::vector<std::string> args = Utility::SplitByDelimiters(input, { " " });
+	std::string tableName = args[0];
+	std::string command = args[1];
+
+	if (command == "add")
+		mCommand = UserInput::COMMANDS::COMMAND_MODIFY_ADD_ROW;
+
+	if (command == "remove")
+		mCommand = UserInput::COMMANDS::COMMAND_MODIFY_REMOVE_ROW;
+
+	if (command == "update")
+		mCommand = UserInput::COMMANDS::COMMAND_MODIFY_UPDATE_ROW;
+
+	return tableName;
+}
+
+/*
+	Show remove row menu and return the input
+*/
+std::string UserInput::MenuModifyRemoveRow()
+{
+	std::cout << "Remove row menu" << std::endl;
+
+	return std::string();
+}
+
+/*
+	Show update row menu and return the input
+*/
+std::string UserInput::MenuModifyUpdateRow()
+{
+	std::cout << "Update row menu" << std::endl;
+
+	return std::string();
+}
+
+/*
+	Show add row menu and return the input
+*/
+std::string UserInput::MenuModifyAddRow()
+{
+	std::cout << "Add row menu" << std::endl;
+
+	return std::string();
 }
 
 /*

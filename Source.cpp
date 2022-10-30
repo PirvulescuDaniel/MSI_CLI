@@ -10,6 +10,7 @@ int main(){
 
   UserInput ui;
   std::string databasePath = ui.GetDbPath();
+  std::string contextTable;
 
   Database db(databasePath);
 
@@ -32,6 +33,9 @@ int main(){
             case UserInput::COMMANDS::COMMAND_QUIT:
               db.CloseCurrentDb();
               exit(0);
+            case UserInput::COMMANDS::COMMAND_MODIFY:
+              ui.SetState(UserInput::MENU_STATE::MENU_MODIFY_TABLE);
+              break;
           }
           break;
         }
@@ -69,6 +73,53 @@ int main(){
           db.CloseCurrentDb();
           databasePath = ui.GetDbPath();
           db.SwitchDatabase(databasePath);
+          ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
+          break;
+        }
+      case UserInput::MENU_STATE::MENU_MODIFY_TABLE:
+        {
+
+          contextTable = ui.MenuModifyTable();
+
+          switch (ui.GetCommand())
+          {
+            case UserInput::COMMANDS::COMMAND_MODIFY_ADD_ROW:
+              ui.SetState(UserInput::MENU_STATE::MENU_MODIFY_TABLE_ADD_ROW);
+              break;
+            case UserInput::COMMANDS::COMMAND_MODIFY_REMOVE_ROW:
+              ui.SetState(UserInput::MENU_STATE::MENU_MODIFY_TABLE_REMOVE_ROW);
+              break;
+            case UserInput::COMMANDS::COMMAND_MODIFY_UPDATE_ROW:
+              ui.SetState(UserInput::MENU_STATE::MENU_MODIFY_TABLE_UPDATE_ROW);
+              break;
+            default:
+              ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
+              break;
+          }
+
+          break;
+        }
+      case UserInput::MENU_STATE::MENU_MODIFY_TABLE_ADD_ROW:
+        {
+          //TODO
+          std::cout << "ADD" << std::endl;
+          
+          ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
+          break;
+        }
+      case UserInput::MENU_STATE::MENU_MODIFY_TABLE_REMOVE_ROW:
+        {
+          //TODO
+          std::cout << "REMOVE" << std::endl;
+
+          ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
+          break;
+        }
+      case UserInput::MENU_STATE::MENU_MODIFY_TABLE_UPDATE_ROW:
+        {
+          //TODO
+          std::cout << "UPDATE" << std::endl;
+
           ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
           break;
         }
