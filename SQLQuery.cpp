@@ -37,7 +37,7 @@ void SQLQuery::ComposeRemoveTableQuery(const Table& aTable)
 void SQLQuery::ComposeModifyTableQuery(const Table& aTable, const std::vector<Condition>& aConditions)
 {
     //TODO
-}
+} 
 
 /*
   compose the query that select some fields from the table
@@ -66,9 +66,34 @@ void SQLQuery::ComposeSelectQuery(
 }
 
 /*
+  compose the query that add a row into a table
+*/
+void SQLQuery::ComposeAddRowQuery(const Table& aTable, const std::vector<Field> aFields)
+{
+  if (aFields.empty())
+    return;
+
+  std::string queryTemp = "INSERT INTO `" + aTable.GetName() + "` ";
+  std::string composeColumnsPart;
+  std::string composeValuesPart;
+  unsigned int valuesNo = aFields.size();
+
+  for (int i = 0; i < valuesNo - 1; i++)
+  {
+    composeColumnsPart += "`" + aTable.GetName() + "`.`" + aFields.at(i).GetName() + "` , ";
+    composeValuesPart += "'" + aFields.at(i).GetValue() + "' ,";
+  }
+  composeColumnsPart += "`" + aTable.GetName() + "`.`" + aFields.at(valuesNo - 1).GetName() + "`";
+  composeValuesPart += "'" + aFields.at(valuesNo - 1).GetValue() + "'";
+
+  queryTemp += "( " + composeColumnsPart + " ) VALUES (" + composeValuesPart + " )";
+  mQuery = queryTemp;
+}
+
+/*
     @return the query as a std::string
 */
 const std::string& SQLQuery::GetQuery() const
 {
     return mQuery;
-}
+} 

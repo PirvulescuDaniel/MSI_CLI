@@ -1,6 +1,8 @@
 #pragma once
 #include "Utility.h"
-#include "Table.h"
+
+class Table;
+class Field;
 
 namespace Parser
 {
@@ -8,5 +10,10 @@ namespace Parser
 		@return a Table, after string parsing
 	*/
 	Table ParseCreateTable(const std::string& aInput);
+
+	/*
+		Parse the AddRow Input
+	*/
+	std::vector<std::string> ParseAddRow(const std::string& aInput);
 
 }

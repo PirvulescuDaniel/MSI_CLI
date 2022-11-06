@@ -128,9 +128,11 @@ std::string UserInput::MenuModifyUpdateRow()
 */
 std::string UserInput::MenuModifyAddRow()
 {
-	std::cout << "Add row menu" << std::endl;
+	std::cout << "Write the list of values." << std::endl;
 
-	return std::string();
+	std::string input;
+	std::getline(std::cin, input);
+	return input;
 }
 
 /*

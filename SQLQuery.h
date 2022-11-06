@@ -17,6 +17,9 @@ public:
 
 	const std::string& GetQuery() const;
 
+	void ComposeAddRowQuery(const Table& aTable, const std::vector<Field> aFields) override;
+
+
 private:
 	std::string mQuery;
 };

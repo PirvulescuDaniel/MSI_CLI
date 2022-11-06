@@ -17,5 +17,7 @@ public:
 		const Field& aField,
 		const std::vector<Condition>& aConditions) = 0;
 
+	virtual void ComposeAddRowQuery(const Table& aTable, const std::vector<Field> aFields) = 0;
+
 	virtual const std::string& GetQuery() const = 0;
 };

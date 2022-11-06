@@ -14,7 +14,7 @@ namespace Utility
   /*
     Show a MessageBox with a specific message
   */
-	inline  void ShowMSB(const std::string& aMessage)
+	inline void ShowMSB(const std::string& aMessage)
   {
     MessageBox(NULL, Utility::to_wstring(aMessage).c_str(), L"Error", NULL);
   }
@@ -69,4 +69,5 @@ namespace Utility
 		output = std::vector<std::string>(output.begin(), last);
 		return output;
 	}
+
 }

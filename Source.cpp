@@ -81,6 +81,22 @@ int main(){
 
           contextTable = ui.MenuModifyTable();
 
+          //check if the table exists in the database
+
+          ITableQueries* query = new SQLQuery();
+          Table checkTable("_Tables");
+          Field checkField("Name", "dummyValue");
+          Condition checkCondition("Name", "=", contextTable);
+          query->ComposeSelectQuery(checkTable, checkField, { checkCondition });
+          std::vector<std::string> output = db.InterrogateWithReturn(query);
+
+          if (output.empty())
+          {
+            std::cout << "There is not a table with this name in the database." << std::endl;
+            ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
+            break;
+          }
+
           switch (ui.GetCommand())
           {
             case UserInput::COMMANDS::COMMAND_MODIFY_ADD_ROW:
@@ -101,9 +117,26 @@ int main(){
         }
       case UserInput::MENU_STATE::MENU_MODIFY_TABLE_ADD_ROW:
         {
-          //TODO
-          std::cout << "ADD" << std::endl;
+          std::string input = ui.MenuModifyAddRow();
+          std::vector<std::string> values = Parser::ParseAddRow(input);
           
+          ITableQueries* queryCheck = new SQLQuery();
+          Table tableCheck("_Columns");
+          Field fieldCheck("Name", "dummyValue");
+          Condition conditionCheck("Table", "=", contextTable);
+          queryCheck->ComposeSelectQuery(tableCheck, fieldCheck, { conditionCheck });
+          std::vector<std::string> columnsNames = db.InterrogateWithReturn(queryCheck);
+
+          std::vector<Field> fieldsToAdd;
+          for (int i = 0; i < columnsNames.size(); i++)
+          {
+            fieldsToAdd.push_back({ Field(columnsNames.at(i), values.at(i)) });
+          }
+
+          ITableQueries* queryAdd = new SQLQuery();
+          queryAdd->ComposeAddRowQuery(Table(contextTable), fieldsToAdd);
+          db.Interrogate(queryAdd);
+
           ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
           break;
         }

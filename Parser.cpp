@@ -1,4 +1,6 @@
 #include "Parser.h"
+#include "Table.h"
+#include "Field.h"
 
 Table Parser::ParseCreateTable(const std::string& aInput)
 {
@@ -17,4 +19,10 @@ Table Parser::ParseCreateTable(const std::string& aInput)
 	Row row(fields);
 	const Table table(tableName, { row });
 	return table;
+}
+
+std::vector<std::string> Parser::ParseAddRow(const std::string& aInput)
+{
+	std::vector<std::string> values = Utility::SplitByDelimiters(aInput, { " " });
+	return values;
 }
