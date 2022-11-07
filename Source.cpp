@@ -142,8 +142,10 @@ int main(){
         }
       case UserInput::MENU_STATE::MENU_MODIFY_TABLE_REMOVE_ROW:
         {
-          //TODO
-          std::cout << "REMOVE" << std::endl;
+          std::string input = ui.MenuModifyRemoveRow();
+          std::vector<Condition> conditions = Parser::ParseRemoveRow(input);
+
+          //TODO parse the logic operators(AND/OR)
 
           ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
           break;

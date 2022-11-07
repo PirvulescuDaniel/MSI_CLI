@@ -108,9 +108,10 @@ std::string UserInput::MenuModifyTable()
 */
 std::string UserInput::MenuModifyRemoveRow()
 {
-	std::cout << "Remove row menu" << std::endl;
-
-	return std::string();
+	std::cout << "Condition list(e.g: col1=val1 AND col2=val2 OR col3=val3):" << std::endl;
+	std::string input;
+	std::getline(std::cin, input);
+	return input;
 }
 
 /*

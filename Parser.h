@@ -3,6 +3,7 @@
 
 class Table;
 class Field;
+class Condition;
 
 namespace Parser
 {
@@ -15,5 +16,10 @@ namespace Parser
 		Parse the AddRow Input
 	*/
 	std::vector<std::string> ParseAddRow(const std::string& aInput);
+
+	/*
+		Parse the RemoveRow Input
+	*/
+	std::vector<Condition> ParseRemoveRow(const std::string& aInput);
 
 }
