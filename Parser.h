@@ -1,5 +1,4 @@
 #pragma once
-#include "Utility.h"
 
 class Table;
 class Field;
@@ -22,4 +21,8 @@ namespace Parser
 	*/
 	std::vector<Condition> ParseRemoveRow(const std::string& aInput);
 
+	/*
+		Get the logic operators in the order that they apears in aInput
+	*/
+	std::vector<std::string> ParseLogicOperator(const std::string& aInput);
 }

@@ -1,7 +1,10 @@
+#include "pch.h"
+#include "Utility.h"
 #include "Parser.h"
 #include "Table.h"
 #include "Field.h"
 #include "Condition.h"
+
 
 Table Parser::ParseCreateTable(const std::string& aInput)
 {
@@ -32,7 +35,7 @@ std::vector<Condition> Parser::ParseRemoveRow(const std::string& aInput)
 {
 	std::vector<Condition> conditions;
 
-	std::vector<std::string> delimiters = { " AND ", " OR " };
+	std::vector<std::string> delimiters = { " AND ", " OR ", " and ", " or "};
 	std::vector<std::string> condititionsStr = Utility::SplitByDelimiters(aInput, delimiters);
 
 	for (const auto& conditionStr : condititionsStr)
@@ -42,4 +45,19 @@ std::vector<Condition> Parser::ParseRemoveRow(const std::string& aInput)
 	}
 
 	return conditions;
+}
+
+std::vector<std::string> Parser::ParseLogicOperator(const std::string& aInput)
+{
+	std::vector<std::string> output;
+
+	std::vector<std::string> words = Utility::SplitByDelimiters(aInput, { " " });
+	for (auto& word : words)
+	{
+		std::transform(word.begin(), word.end(), word.begin(), toupper);
+		if (word == "AND" || word == "OR")
+			output.push_back(word);
+	}
+
+	return output;
 }

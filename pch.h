@@ -10,6 +10,7 @@
 //data structures
 #include <vector>
 #include <string>
+#include <algorithm>
 
 //MSI
 #include <Windows.h>

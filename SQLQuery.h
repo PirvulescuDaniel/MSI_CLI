@@ -18,7 +18,9 @@ public:
 	const std::string& GetQuery() const;
 
 	void ComposeAddRowQuery(const Table& aTable, const std::vector<Field> aFields) override;
-	void ComposeRemoveRowQuery(const Table& aTable, const std::vector<Condition> aConditions) override;;
+	void ComposeRemoveRowQuery(const Table& aTable,
+														 const std::vector<Condition> aConditions,
+														 const std::vector<std::string>& aLogicOperators) override;
 
 private:
 	std::string mQuery;

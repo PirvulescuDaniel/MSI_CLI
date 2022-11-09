@@ -45,7 +45,6 @@ int main(){
           Table table = Parser::ParseCreateTable(input);
 
           //first check if the table already exists in the database
-
           ITableQueries* checkQuery = new SQLQuery();
           Table checkTable("_Tables");
           Field checkField("Name", "dummyValue");
@@ -82,7 +81,6 @@ int main(){
           contextTable = ui.MenuModifyTable();
 
           //check if the table exists in the database
-
           ITableQueries* query = new SQLQuery();
           Table checkTable("_Tables");
           Field checkField("Name", "dummyValue");
@@ -120,6 +118,7 @@ int main(){
           std::string input = ui.MenuModifyAddRow();
           std::vector<std::string> values = Parser::ParseAddRow(input);
           
+          //get the table columns
           ITableQueries* queryCheck = new SQLQuery();
           Table tableCheck("_Columns");
           Field fieldCheck("Name", "dummyValue");
@@ -144,12 +143,11 @@ int main(){
         {
           std::string input = ui.MenuModifyRemoveRow();
           std::vector<Condition> conditions = Parser::ParseRemoveRow(input);
+          std::vector<std::string> logicOperators = Parser::ParseLogicOperator(input);
 
-          //TODO parse the logic operators(AND/OR)
-
-          ITableQueries* query = new SQLQuery();
-          query->ComposeRemoveRowQuery(contextTable,conditions);
-          std::cout << query->GetQuery() << std::endl;
+          ITableQueries* queryRemove = new SQLQuery();
+          queryRemove->ComposeRemoveRowQuery(contextTable,conditions,logicOperators);
+          db.Interrogate(queryRemove);
 
           ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
           break;
