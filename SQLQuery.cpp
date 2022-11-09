@@ -91,6 +91,30 @@ void SQLQuery::ComposeAddRowQuery(const Table& aTable, const std::vector<Field> 
 }
 
 /*
+  compose the query that remove a row into a table
+*/
+void SQLQuery::ComposeRemoveRowQuery(const Table& aTable, const std::vector<Condition> aConditions)
+{
+  std::string queryTemp = "DELETE FROM `" + aTable.GetName() + "` WHERE ";
+
+  if (aConditions.size() > 1)
+    queryTemp += "( ";
+
+  for (const auto& condition : aConditions)
+  {
+    queryTemp += "`" + aTable.GetName() + "`.`" + condition.GetLeftArgument() + "`" + condition.GetComparator() + "'" + condition.GetRightArgument() + "'";
+
+    if (!(aConditions.back() == condition))
+      queryTemp += " AND ";
+  }
+
+  if (aConditions.size() > 1)
+    queryTemp += ") ";
+
+  mQuery = queryTemp;
+}
+
+/*
     @return the query as a std::string
 */
 const std::string& SQLQuery::GetQuery() const

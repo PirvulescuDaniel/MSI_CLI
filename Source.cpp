@@ -147,6 +147,10 @@ int main(){
 
           //TODO parse the logic operators(AND/OR)
 
+          ITableQueries* query = new SQLQuery();
+          query->ComposeRemoveRowQuery(contextTable,conditions);
+          std::cout << query->GetQuery() << std::endl;
+
           ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
           break;
         }
