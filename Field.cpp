@@ -30,6 +30,9 @@ void Field::SetValue(const std::string& aValue)
 	mValue = aValue;
 }
 
+/*
+	@return true if two Fields are equal, false otherwise
+*/
 bool Field::operator ==(Field aField) const
 {
 	return ((mName == aField.GetName()) && (mValue == aField.GetValue()));

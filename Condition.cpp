@@ -35,6 +35,9 @@ const std::string& Condition::GetComparator() const
     return mComparator;
 }
 
+/*
+  @return true if two Conditions are equal, false otherwise
+*/
 bool Condition::operator==(const Condition aCondition) const
 {
   return this->mLeftArgument  == aCondition.GetLeftArgument() &&
