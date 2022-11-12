@@ -29,3 +29,8 @@ void Field::SetValue(const std::string& aValue)
 {
 	mValue = aValue;
 }
+
+bool Field::operator ==(Field aField) const
+{
+	return ((mName == aField.GetName()) && (mValue == aField.GetValue()));
+}

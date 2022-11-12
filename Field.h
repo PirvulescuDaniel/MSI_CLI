@@ -13,6 +13,8 @@ public:
 
 	void SetValue(const std::string& aValue);
 
+	bool operator ==(const Field aField) const;
+
 private:
 	std::string mName;
 	std::string mValue;

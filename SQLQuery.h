@@ -21,8 +21,8 @@ public:
 														 const std::vector<Condition> aConditions,
 														 const std::vector<std::string>& aLogicOperators) override;
 	void ComposeUpdateRowQuery(const Table& aTable,
-														 const std::vector<Field> aFields,
-														 const std::vector<Condition> aConditions,
+														 const std::vector<Field>& aFields,
+														 const std::vector<Condition>& aConditions,
 														 const std::vector<std::string>& aLogicOperators) override;
 
 private:

@@ -159,6 +159,10 @@ int main(){
           std::vector<Condition> conditions = Parser::ParseConditions(inputs[2]);
           std::vector<std::string> logicOperators = Parser::ParseLogicOperator(inputs[2]);
 
+          ITableQueries* queryUpdate = new SQLQuery();
+          queryUpdate->ComposeUpdateRowQuery(contextTable, fields, conditions, logicOperators);
+          db.Interrogate(queryUpdate);
+
           ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
           break;
         }

@@ -20,8 +20,8 @@ public:
 																		 const std::vector<Condition> aConditions,
 																		 const std::vector<std::string>& aLogicOperators) = 0;
 	virtual void ComposeUpdateRowQuery(const Table& aTable,
-																		 const std::vector<Field> aFields,
-																		 const std::vector<Condition> aConditions,
+																		 const std::vector<Field>& aFields,
+																		 const std::vector<Condition>& aConditions,
 																		 const std::vector<std::string>& aLogicOperators) = 0;
 
 	virtual const std::string& GetQuery() const = 0;

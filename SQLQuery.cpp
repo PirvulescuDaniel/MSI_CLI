@@ -115,9 +115,38 @@ void SQLQuery::ComposeRemoveRowQuery(
 /*
   compose the query that modify a table by some conditions
 */
-void SQLQuery::ComposeUpdateRowQuery(const Table& aTable, const std::vector<Field> aFields, const std::vector<Condition> aConditions, const std::vector<std::string>& aLogicOperators)
+void SQLQuery::ComposeUpdateRowQuery(
+  const Table& aTable,
+  const std::vector<Field>& aFields,
+  const std::vector<Condition>& aConditions,
+  const std::vector<std::string>& aLogicOperators
+)
 {
-  //TODO
+  std::string tempQuery = "UPDATE `" + aTable.GetName() + "` SET ";
+
+  if (aFields.size() > 1) { tempQuery += "("; }
+  for (const auto& field : aFields)
+  {
+    tempQuery += '`' + aTable.GetName() + "`.`" + field.GetName() + "`='" + field.GetValue() + "'";
+    if (!(field == aFields.back())) { tempQuery += ", "; }
+  }
+  if (aFields.size() > 1) { tempQuery += ")"; }
+
+  if (aConditions.size()) { tempQuery += " WHERE "; }
+
+  if (aConditions.size() > 1) { tempQuery += "("; }
+  for (auto i = 0; i < aConditions.size(); i++)
+  {
+    tempQuery += "`" + aTable.GetName() + "`.`" +
+                       aConditions[i].GetLeftArgument() + "`" +
+                       aConditions[i].GetComparator() + "'" +
+                       aConditions[i].GetRightArgument() + "'";
+
+    if (!(aConditions[i] == aConditions.back())) { tempQuery += " " + aLogicOperators[i] + " "; };
+  }
+  if (aConditions.size() > 1) { tempQuery += ")"; };
+
+  mQuery = tempQuery;
 }
 
 /*
