@@ -9,6 +9,7 @@ public:
 	{
 		MENU_MAIN,
 		MENU_ADD_TABLE,
+		MENU_REMOVE_TABLE,
 		MENU_OPEN_DATABASE,
 		MENU_SWITCH_DATABASE,
 		MENU_MODIFY_TABLE,
@@ -20,6 +21,7 @@ public:
 	enum class COMMANDS
 	{
 		COMMAND_ADD_TABLE,
+		COMMAND_REMOVE_TABLE,
 		COMMAND_SWITCH_DB,
 		COMMAND_QUIT,
 		COMMAND_MODIFY,
@@ -33,6 +35,7 @@ public:
 	
 	void MenuMain();
 	std::string MenuAddTable();
+	std::string MenuRemoveTable();
 	std::string MenuModifyTable();
 	std::string MenuModifyAddRow();
 	std::string MenuModifyRemoveRow();

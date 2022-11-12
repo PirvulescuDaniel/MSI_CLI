@@ -27,6 +27,9 @@ int main(){
             case UserInput::COMMANDS::COMMAND_ADD_TABLE:
               ui.SetState(UserInput::MENU_STATE::MENU_ADD_TABLE);
               break;
+            case UserInput::COMMANDS::COMMAND_REMOVE_TABLE:
+              ui.SetState(UserInput::MENU_STATE::MENU_REMOVE_TABLE);
+              break;
             case UserInput::COMMANDS::COMMAND_SWITCH_DB:
               ui.SetState(UserInput::MENU_STATE::MENU_OPEN_DATABASE);
               break;
@@ -64,6 +67,16 @@ int main(){
 
             db.Interrogate(query);
           }
+          ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
+          break;
+        }
+      case UserInput::MENU_STATE::MENU_REMOVE_TABLE:
+        {
+          std::string input = ui.MenuRemoveTable();
+
+          ITableQueries* query = new SQLQuery();
+          query->ComposeRemoveTableQuery(input);
+          db.Interrogate(query);
           ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
           break;
         }

@@ -39,6 +39,9 @@ void UserInput::MenuMain()
  	if (commandString == "create")
 		mCommand = UserInput::COMMANDS::COMMAND_ADD_TABLE;
 
+	if (commandString == "remove")
+		mCommand = UserInput::COMMANDS::COMMAND_REMOVE_TABLE;
+
 	if (commandString == "switch")
 		mCommand = UserInput::COMMANDS::COMMAND_SWITCH_DB;
 
@@ -69,6 +72,21 @@ std::string UserInput::MenuAddTable()
 		std::getline(std::cin, column);
 		input += " " + column;
 	}
+
+	return input;
+}
+
+/*
+	Get drop table input from the user
+*/
+std::string UserInput::MenuRemoveTable()
+{
+	std::cout << std::endl;
+	std::cout << "-------------REMOVE TABLE MENU-------------" << std::endl;
+	std::cout << "Name of the table that you want to remove: " << std::endl;
+
+	std::string input;
+	std::getline(std::cin, input);
 
 	return input;
 }
