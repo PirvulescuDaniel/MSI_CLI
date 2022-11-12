@@ -142,7 +142,7 @@ int main(){
       case UserInput::MENU_STATE::MENU_MODIFY_TABLE_REMOVE_ROW:
         {
           std::string input = ui.MenuModifyRemoveRow();
-          std::vector<Condition> conditions = Parser::ParseRemoveRow(input);
+          std::vector<Condition> conditions = Parser::ParseConditions(input);
           std::vector<std::string> logicOperators = Parser::ParseLogicOperator(input);
 
           ITableQueries* queryRemove = new SQLQuery();
@@ -154,8 +154,10 @@ int main(){
         }
       case UserInput::MENU_STATE::MENU_MODIFY_TABLE_UPDATE_ROW:
         {
-          //TODO
-          std::cout << "UPDATE" << std::endl;
+          std::vector<std::string> inputs = ui.MenuModifyUpdateRow();
+          std::vector<Field> fields = Parser::ParseUpdateRow(inputs[0] + " " + inputs[1]);
+          std::vector<Condition> conditions = Parser::ParseConditions(inputs[2]);
+          std::vector<std::string> logicOperators = Parser::ParseLogicOperator(inputs[2]);
 
           ui.SetState(UserInput::MENU_STATE::MENU_MAIN);
           break;

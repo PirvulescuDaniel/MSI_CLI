@@ -31,7 +31,7 @@ std::vector<std::string> Parser::ParseAddRow(const std::string& aInput)
 	return values;
 }
 
-std::vector<Condition> Parser::ParseRemoveRow(const std::string& aInput)
+std::vector<Condition> Parser::ParseConditions(const std::string& aInput)
 {
 	std::vector<Condition> conditions;
 
@@ -59,5 +59,24 @@ std::vector<std::string> Parser::ParseLogicOperator(const std::string& aInput)
 			output.push_back(word);
 	}
 
+	return output;
+}
+
+std::vector<Field> Parser::ParseUpdateRow(const std::string& aInput)
+{
+	std::vector<Field> output;
+	std::vector<std::string> args = Utility::SplitByDelimiters(aInput, { " " });
+
+	auto argsSize = args.size();
+
+	for (auto i = 0; i < argsSize / 2; i++)
+	{
+		std::string columnName = args[i];
+		std::string columnValue = args[i + (argsSize / 2)];
+
+		Field tempField(columnName, columnValue);
+		output.push_back(tempField);
+	}
+	
 	return output;
 }

@@ -32,14 +32,6 @@ void SQLQuery::ComposeRemoveTableQuery(const Table& aTable)
 }
 
 /*
-    compose the query that modify a table by some conditions
-*/
-void SQLQuery::ComposeModifyTableQuery(const Table& aTable, const std::vector<Condition>& aConditions)
-{
-    //TODO
-} 
-
-/*
   compose the query that select some fields from the table
 */
 void SQLQuery::ComposeSelectQuery(
@@ -118,6 +110,14 @@ void SQLQuery::ComposeRemoveRowQuery(
     queryTemp += ")";
 
   mQuery = queryTemp;
+}
+
+/*
+  compose the query that modify a table by some conditions
+*/
+void SQLQuery::ComposeUpdateRowQuery(const Table& aTable, const std::vector<Field> aFields, const std::vector<Condition> aConditions, const std::vector<std::string>& aLogicOperators)
+{
+  //TODO
 }
 
 /*

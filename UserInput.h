@@ -36,7 +36,7 @@ public:
 	std::string MenuModifyTable();
 	std::string MenuModifyAddRow();
 	std::string MenuModifyRemoveRow();
-	std::string MenuModifyUpdateRow();
+	std::vector<std::string> MenuModifyUpdateRow();
 
 	UserInput::MENU_STATE GetState() const;
 	void SetState(const UserInput::MENU_STATE& aState);

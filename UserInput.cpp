@@ -117,11 +117,23 @@ std::string UserInput::MenuModifyRemoveRow()
 /*
 	Show update row menu and return the input
 */
-std::string UserInput::MenuModifyUpdateRow()
+std::vector<std::string> UserInput::MenuModifyUpdateRow()
 {
-	std::cout << "Update row menu" << std::endl;
+	std::vector<std::string> outputs = { "","","" };
 
-	return std::string();
+	std::cout << "The column(s) you want to modify: " << std::endl;
+	std::getline(std::cin, outputs[0]);
+	std::cout << std::endl;
+
+	std::cout << "The value(s) for each column: " << std::endl;
+	std::getline(std::cin, outputs[1]);
+	std::cout << std::endl;
+
+	std::cout << "Conditions: " << std::endl;
+	std::getline(std::cin, outputs[2]);
+	std::cout << std::endl;
+	
+	return outputs;
 }
 
 /*

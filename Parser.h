@@ -19,10 +19,15 @@ namespace Parser
 	/*
 		Parse the RemoveRow Input
 	*/
-	std::vector<Condition> ParseRemoveRow(const std::string& aInput);
+	std::vector<Condition> ParseConditions(const std::string& aInput);
 
 	/*
 		Get the logic operators in the order that they apears in aInput
 	*/
 	std::vector<std::string> ParseLogicOperator(const std::string& aInput);
+
+	/*
+		Parse the UpdateRow Input
+	*/
+	std::vector<Field> ParseUpdateRow(const std::string& aInput);
 }
